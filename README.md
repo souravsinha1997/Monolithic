@@ -1,6 +1,13 @@
 # Monolithic
 A monolithic version of an e-commerce application designed for managing products, orders, and user interactions in a single Spring Boot service. This project is a simplified version of my earlier microservices-based E-Commerce System, built to demonstrate how the same functionality can be achieved with a monolithic architecture.
 
+- User authentication & authorization.  
+- CRUD operations for products.  
+- Managing orders & order status.  
+- Integration of all components (users, orders, products) in one service.  
+- API documentation via Swagger UI.
+- H2 database support for development & simple persistence.  
+
 
 Project can be downloaded and run on local or this can be run using Docker also. And Swagger is added for API documentation.
 
