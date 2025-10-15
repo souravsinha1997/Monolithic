@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/signIn", "/api/users/signUp").permitAll()
                         //.requestMatchers("/api/v2/customers/signIn", "/api/v2/customers/signUp","/api/v2/customers/{id}").permitAll()
                         //.requestMatchers("/api/customers/exists/{id}" , "/api/customers/email/{id}").permitAll()// ✅ Allow JWKS access
+                        .requestMatchers("/api/orders/**").hasRole("USER")
                         .requestMatchers("/api/carts/**").hasRole("USER")
                         .requestMatchers("/api/products/**","/api/categories/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/api/users/profile").hasAnyRole("ADMIN", "USER")

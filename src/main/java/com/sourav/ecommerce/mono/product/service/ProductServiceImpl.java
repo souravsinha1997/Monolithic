@@ -2,6 +2,7 @@ package com.sourav.ecommerce.mono.product.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
 		Category category = categoryRepo.findByName(request.getCategory());
 		Product product = RequestToEntity(request);
 		product.setCategory(category);
-		
+		productRepo.findByName(request.getName()).orElseThrow(() -> new RuntimeException("Product with same name exists"));
 		productRepo.save(product);
 		return "Product saved successfully";
 	}
@@ -133,5 +134,15 @@ public class ProductServiceImpl implements ProductService {
 		product.setQuantity(request.getQuantity());
 		
 		return product;
+	}
+
+	@Override
+	public int getProductIdByProductName(String name) {
+		Optional<Product> product = productRepo.findByName(name);
+		int id = 0;
+		if(!product.isEmpty()) {
+			id = product.get().getId();
+		}
+		return id;
 	}
 }
