@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())) // ✅ allow H2 console frames
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/api/users/signIn", "/api/users/signUp").permitAll()
+                        .requestMatchers("/api/users/signIn", "/api/users/signUp", "/","/index.html","/SouravSinhaCV.pdf").permitAll()
                         //.requestMatchers("/api/v2/customers/signIn", "/api/v2/customers/signUp","/api/v2/customers/{id}").permitAll()
                         //.requestMatchers("/api/customers/exists/{id}" , "/api/customers/email/{id}").permitAll()// ✅ Allow JWKS access
                         .requestMatchers("/api/orders/**").hasRole("USER")
