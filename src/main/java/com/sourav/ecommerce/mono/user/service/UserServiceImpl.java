@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sourav.ecommerce.mono.exception.InvalidLoginException;
+import com.sourav.ecommerce.mono.exception.UserExists;
 import com.sourav.ecommerce.mono.exception.UserNotFoundException;
 import com.sourav.ecommerce.mono.security.JwtService;
 import com.sourav.ecommerce.mono.security.ValidateRequest;
@@ -148,7 +149,15 @@ public class UserServiceImpl implements UserService {
 		user.setPhnNo(userRequest.getPhnNo());
 		user.setEmail(userRequest.getEmail());
 		user.setRole(userRequest.getRole());
-		User savedUser = userRepo.save(user);
+		
+		Optional<User> savedName = userRepo.findByUserName(userRequest.getUserName());
+		if(!savedName.isEmpty()) throw new UserExists("User with same user name exists, use a different user name");
+		Optional<User> savedPhone = userRepo.findByPhnNo(userRequest.getPhnNo());
+		if(!savedPhone.isEmpty()) throw new UserExists("User with same Phone noe exists, use a different number");
+		Optional<User> savedMail = userRepo.findByEmail(userRequest.getEmail());
+		if(!savedMail.isEmpty()) throw new UserExists("User with same Email exists, use a different Email");
+		
+		userRepo.save(user);
 		
 		
 		return "User registered successfully";

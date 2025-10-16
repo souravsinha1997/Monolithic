@@ -80,7 +80,8 @@ public class ProductServiceImpl implements ProductService {
 		Category category = categoryRepo.findByName(request.getCategory());
 		Product product = RequestToEntity(request);
 		product.setCategory(category);
-		productRepo.findByName(request.getName()).orElseThrow(() -> new RuntimeException("Product with same name exists"));
+		Optional<Product> savedProduct = productRepo.findByName(request.getName());
+		if(!savedProduct.isEmpty()) throw new RuntimeException("Product with same name already exist");
 		productRepo.save(product);
 		return "Product saved successfully";
 	}

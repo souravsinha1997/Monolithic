@@ -57,10 +57,11 @@ public class CategoryServiceImpl implements CategoryService{
 	public String saveCategory(CategoryRequest request) {
 		
 		Category category = new Category();
+		Category savedCategory = categoryRepo.findByName(request.getName());
+		if(savedCategory!=null) throw new RuntimeException("Category with same name exist");
 		category.setDescription(request.getDescription());
 		category.setName(request.getName());
-		
-		Category savedCategory = categoryRepo.save(category);
+		categoryRepo.save(category);
 		
 		return "Category Saved Successfully";
 	}
