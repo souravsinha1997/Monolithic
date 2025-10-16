@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/profile").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers(
+                        		"/actuator/*",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
